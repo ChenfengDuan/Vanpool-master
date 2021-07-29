@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style ="font-family: monospace">
+
+    <h1>User: {{ user.username }}</h1>
+    <hr>
+    <p><b>Email:</b> {{ user.email }}</p>
+    {% if user.access == 0 %}
+        <p><b>Access:</b> Rider</p>
+    {% endif %}
+    {% if user.access == 1 %}
+        <p><b>Access:</b> Driver</p>
+        <p><b>Vehicle:</b> {{ user.vehicle.all() }}</p>
+    {% endif %}
+    {% if user.access == 2 %}
+        <p><b>Access:</b> Admin</p>
+    {% endif %}
+</div>
+
+{% endblock %}

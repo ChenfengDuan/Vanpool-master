@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h3>Welcome to the driver management page: {{ current_user.username }}</h3>
+    <form action="{{ url_for('show_users') }}">
+        <input type="submit" value="Show Users" />
+    </form>
+    <form action="{{ url_for('add_drivers') }}">
+        <input type="submit" value="Add Drivers" />
+    </form>
+{% endblock %}

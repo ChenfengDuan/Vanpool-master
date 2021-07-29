@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Add Vans / Vehicles</h1>
+    <form action ="" method="post" novalidate>
+        <p>
+            {{ form.model.label }}<br>
+            {{ form.model(size=32) }}<br>
+        </p>
+        <p>
+            {{ form.make.label }}<br>
+            {{ form.make(size=32) }}
+        </p>
+        <p>
+            {{ form.color.label }}<br>
+            {{ form.color(size=32) }}
+        </p>
+        <p>
+            {{ form.license_plate.label }}<br>
+            {{ form.license_plate(size=32) }}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+
+{% endblock %}

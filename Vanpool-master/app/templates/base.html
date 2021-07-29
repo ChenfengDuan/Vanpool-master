@@ -1,0 +1,88 @@
+<html>
+    <head>
+        {% if title %}
+        <title>{{ title }} - Vanpool</title>
+        {% else %}
+        <title>Welcome to Vanpool</title>
+        {% endif %}
+
+        <style>
+            body{
+                background-color:cornsilk;
+            }
+            .Base_Title_logoff{
+                margin-top:8%;
+                font-size:50px;
+                font-weight: bold;
+                color: orange;
+                font-family: monospace;
+            }
+            .Base_Title_login{
+                font-size:30px;
+                font-weight: bold;
+                color: orange;
+                font-family: monospace;
+            }
+            .Base_Nav{
+                display:flex;
+                justify-content: space-evenly;
+            }
+        </style>
+    </head>
+    <body>
+<!--        <div>Vanpool:-->
+<!--            <a href="{{ url_for('index') }}">Home</a>-->
+<!--            {% if current_user.is_anonymous %}-->
+<!--            <a href="{{ url_for('login') }}">Login</a>-->
+<!--            {% else %}-->
+<!--            <a href="{{ url_for('user', username=current_user.username) }}">Profile</a>-->
+<!--            <a href="{{ url_for('logout') }}">Logout</a>-->
+<!--            {% endif %}-->
+<!--            {% if current_user.access == 2 %}-->
+<!--            <a href="{{ url_for('driver_management') }}">Driver Management</a>-->
+<!--            <a href="{{ url_for('fleet_management') }}">Fleet Management</a>-->
+<!--            {% endif %}-->
+<!--        </div>-->
+
+        <div style = "text-align: center;">
+           {% if current_user.is_anonymous %}
+            <h1 class = "Base_Title_logoff">Vanpool</h1>
+           {% else %}
+            <h1 class = "Base_Title_login">Vanpool</h1>
+            {% endif %}
+
+            <div class = "Base_Nav">
+
+                {% if current_user.is_anonymous %}
+                <!-- <a href="{{ url_for('login') }}">Login</a> -->
+                {% else %}
+                <a style ="text-decoration:none; font-weight: bold; background-color: white;padding: 10px 40px;border-radius: 10px;" href="{{ url_for('index', username=current_user.username) }}">Home</a>
+                <a style = "text-decoration:none;font-weight: bold; background-color: white;padding: 10px 40px;border-radius: 10px;" href="{{ url_for('user', username=current_user.username) }}">Profile</a>
+                <a style = "text-decoration:none;font-weight: bold; background-color: white;padding: 10px 40px;border-radius: 10px;" href="{{ url_for('logout') }}">Logout</a>
+                {% endif %}
+               {% if current_user.access == 2 %}
+                <a href="{{ url_for('index') }}">Home</a>
+                <a href="{{ url_for('driver_management') }}">Driver Management</a>
+                <a href="{{ url_for('fleet_management') }}">Fleet Management</a>
+                {% endif %}
+            </div>
+        </div>
+<br>
+        <div style = "padding: 0px 10px; width:fit-content; margin:auto">
+        <!-- <hr> -->
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <h1>Result:</h1>
+            <ul style = "background-color:white; border-radius:10px">
+                {% for message in messages %}
+               <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+
+            {% endif %}
+            {% endwith %}
+            {% block content %}{% endblock %}
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>USERS</h1>
+    <hr>
+    {% for user in users %}
+        <p><b>Name:</b> {{user.username}}</p>
+        <p style="margin-left: 40px;line-height:10px"><b>ID:</b> {{user.id}}</p>
+        <p style="margin-left: 40px;line-height:10px"><b>Email:</b> {{user.email}}</p>
+        {% if user.access == 1 %}
+            <p style="margin-left: 40px;line-height:10px"><b>Access: </b> Driver</p>
+            {% if user.vehicle.all() != None %}
+                {% for vehic in v %}
+                    {% if vehic.driver.username == user.username %}
+                        <p style="margin-left: 40px;line-height:10px"><b>Vehicle:</b>
+                        (<b>Make:</b> {{vehic.make}} <b>Model:</b> {{vehic.model}}
+                            <b>Color:</b> {{vehic.color}} <b>License Plate:</b> {{vehic.license_plate}}) </p>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endif %}
+        {% if user.access == 0 %}
+            <p style="margin-left: 40px;line-height:10px"><b>Access: </b> Rider</p>
+        {% endif %}
+        {% if user.access == 2 %}
+            <p style="margin-left: 40px;line-height:10px"><b>Access: </b> Admin</p>
+        {% endif %}
+    {% endfor %}
+    <form action="{{ url_for('driver_management') }}">
+        <input type="submit" value="Back" />
+    </form>
+{% endblock %}
